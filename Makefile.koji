@@ -1,0 +1,13 @@
+PKGNAME=cloud-init-foreman
+PKGVERSION=0.2
+PKGID=$(PKGNAME)-$(PKGVERSION)
+TARFILE=$(PKGID).tar.gz
+
+all:
+	mkdir $(PKGID)
+	ls | grep -v -E '$(PKGID)|\.git' | xargs cp -rt $(PKGID)
+	tar cvzf $(TARFILE) $(PKGID)
+	rm -r $(PKGID)
+
+clean:
+	rm $(TARFILE)

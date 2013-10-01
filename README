@@ -1,0 +1,42 @@
+This directory contains resources for building and deploying foreman module for
+cloud-init. The module should be installed together with amiconfig on a virtual
+disk image. An instance run from the image then registers itself to foreman
+database into a hostgroup. The parameters are passed to the module from 
+the #cloud-config hashtag.
+
+Following are parameters defined for the user data:
+
+Mandatory parameters:
+    master - a puppet master where the instance should be registered
+    hostgroup - hostgroup for an instance
+    login - login for foreman RESTFUL API
+    password - password for foreman RESTFUL API
+
+Example of cloud-init userdata (YAML in case of $cloud-config) is then:
+#cloud-config
+foreman:
+  server: "https://punch.cern.ch"
+  hostgroup: "base/lxbatch"
+  login: "test_admin"
+  password: "hatepuppies"
+
+    
+
+Optional parameters: architecture, model, operatingsystem, environment, domain,
+ptable
+
+The optional parameters are by default autodetected or set to fixed value.
+
+In order to create rpm, you need proper directory structure in your home directory:
+
+~/rpmbuild/
+    |-- BUILD/
+    |-- RPMS/
+    |-- SOURCES/
+    |-- SPECS/
+    `-- SRPMS/
+
+then do 
+# make rpm
+
+in the project directory and you will have rpm in ~/rpmbuild/RPMS/noarch
